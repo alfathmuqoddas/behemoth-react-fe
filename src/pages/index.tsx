@@ -83,8 +83,8 @@ export default function Index() {
                   />
                   <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-300" />
                 </div>
-                <div className="mt-4 space-y-1">
-                  <h3 className="font-medium leading-tight group-hover:underline decoration-1 underline-offset-4">
+                <div className="mt-4 space-y-1 text-center">
+                  <h3 className="font-bold  text-xl leading-tighter group-hover:underline decoration-1 underline-offset-4">
                     {movie.title}
                   </h3>
                   <p className="text-sm text-slate-400 font-mono">

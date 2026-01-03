@@ -63,9 +63,7 @@ export default function ReviewInput({
       </h3>
       <form className="space-y-4" onSubmit={handleSubmit}>
         <div className="flex items-center gap-4">
-          <span className="text-xs text-slate-400 uppercase tracking-tighter">
-            Rating
-          </span>
+          <span className="text-xs text-slate-500 uppercase">Rating</span>
           <select
             value={userReview.rating}
             onChange={(e) =>
@@ -85,7 +83,7 @@ export default function ReviewInput({
         </div>
         <textarea
           placeholder="Share your thoughts on the cinematography, plot, or acting..."
-          className="w-full bg-transparent border-b border-slate-200 py-4 outline-none text-sm placeholder:text-slate-300 focus:border-slate-900 transition-colors resize-none"
+          className="w-full bg-transparent border-b border-slate-200 outline-none pt-4 text-sm placeholder:text-slate-300 focus:border-slate-900 transition-colors"
           rows={3}
           value={userReview.comment}
           onChange={(e) =>
@@ -99,7 +97,7 @@ export default function ReviewInput({
             userReview.rating === 0
           }
           type="submit"
-          className="disabled:opacity-50 bg-slate-900 text-white text-[10px] uppercase tracking-[0.2em] px-8 py-3 rounded-lg hover:cursor-pointer hover:bg-slate-800 transition-all"
+          className="text-[11px] uppercase tracking-[0.2em] font-bold border rounded-lg hover:cursor-pointer bg-slate-900 px-6 py-3 hover:bg-slate-800 text-white transition-all duration-300"
         >
           {isMutating ? "Submitting..." : "Submit Review"}
         </button>
