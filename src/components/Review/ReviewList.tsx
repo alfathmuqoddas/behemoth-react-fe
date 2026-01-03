@@ -1,17 +1,17 @@
-import { useState } from "react";
-import useSWR from "swr";
-import { reviewService } from "../../api/review";
 import DeleteReview from "./DeleteReview";
+import type { TReviewResponse } from "../../api/review";
 
-export default function ReviewList({ movieId }: { movieId: string }) {
-  const [page, setPage] = useState(1);
-  const [size, setSize] = useState(5);
-
-  const { data, isLoading, error, mutate } = useSWR(
-    [`/reviews`, movieId, page, size],
-    () => reviewService.getByMovieId(movieId, page, size)
-  );
-
+export default function ReviewList({
+  error,
+  isLoading,
+  data,
+  mutate,
+}: {
+  error: any;
+  isLoading: boolean;
+  data: TReviewResponse | undefined;
+  mutate: () => void;
+}) {
   if (error)
     return (
       <div className="flex items-center justify-center text-red-500">

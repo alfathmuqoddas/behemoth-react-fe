@@ -3,7 +3,13 @@ import useSWRMutation from "swr/mutation";
 import { reviewService } from "../../api/review";
 import useAuthStore from "../../store/useAuthStore";
 
-export default function ReviewInput({ movieId }: { movieId: string }) {
+export default function ReviewInput({
+  movieId,
+  mutate,
+}: {
+  movieId: string;
+  mutate: () => void;
+}) {
   const user = useAuthStore((state) => state.user);
   const [userReview, setUserReview] = useState({ rating: 5, comment: "" });
 
@@ -41,6 +47,7 @@ export default function ReviewInput({ movieId }: { movieId: string }) {
       {
         onSuccess: () => {
           setUserReview({ rating: 5, comment: "" });
+          mutate();
           alert("Review submitted successfully");
         },
         onError: (error) =>

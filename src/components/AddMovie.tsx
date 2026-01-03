@@ -23,6 +23,7 @@ export default function AddMovie({ mutate }: { mutate: () => void }) {
       {
         onSuccess: () => {
           setIsOpen(false);
+          setImdbId("");
           mutate();
         },
         onError: (error) =>
@@ -54,7 +55,9 @@ export default function AddMovie({ mutate }: { mutate: () => void }) {
           <div className="relative w-full max-w-sm bg-white border border-slate-100 p-10 shadow-2xl animate-in fade-in zoom-in duration-300 rounded-lg">
             <header className="flex justify-between items-start mb-10">
               <div>
-                <h3 className="text-2xl">New Entry</h3>
+                <h3 className="text-2xl font-bold tracking-tighter">
+                  New Entry
+                </h3>
                 <p className="text-[10px] uppercase tracking-widest text-slate-400 mt-1">
                   Add to collection
                 </p>
