@@ -1,15 +1,39 @@
 import { useState } from "react";
-import { Link } from "react-router"; // Note: ensure you are using 'react-router-dom' or the v7 'react-router'
+import { Link, useNavigate } from "react-router";
+import useSWRMutation from "swr/mutation";
+import { authService } from "../api/auth";
+import useAuthStore from "../store/useAuthStore";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { setToken, setUser, setIsLoggedIn } = useAuthStore.getState();
+
+  const navigate = useNavigate();
+
+  const { trigger, isMutating } = useSWRMutation<
+    { token: string; user: { id: string; email: string } },
+    any,
+    string,
+    { email: string; password: string }
+  >("/auth/login", (_url, { arg }) =>
+    authService.login(arg.email, arg.password)
+  );
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!email || !password) return;
-    console.log({ email, password });
-    alert(`Logging in with: ${email}`);
+    trigger(
+      { email, password },
+      {
+        onSuccess: (response) => {
+          setToken(response.token);
+          setUser(response.user);
+          setIsLoggedIn(true);
+          navigate("/");
+        },
+        onError: (error) => alert(`There's problem with your login. ${error}`),
+      }
+    );
   };
 
   return (
@@ -43,9 +67,10 @@ export default function Login() {
               />
               <button
                 type="submit"
+                disabled={isMutating}
                 className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-lg transition-colors shadow-lg mt-2"
               >
-                Login
+                {isMutating ? "Logging in..." : "Login"}
               </button>
 
               <p className="text-sm text-center text-gray-600 mt-4">

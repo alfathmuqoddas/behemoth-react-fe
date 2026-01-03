@@ -1,5 +1,7 @@
 import { Link } from "react-router";
+import useAuthStore from "../store/useAuthStore";
 export default function Index() {
+  const { reset } = useAuthStore.getState();
   const links = [
     { name: "Login", path: "/login" },
     { name: "Register", path: "/register" },
@@ -18,6 +20,12 @@ export default function Index() {
           </Link>
         ))}
       </div>
+      <button
+        onClick={reset}
+        className="text-blue-500 text-xl hover:underline hover:underline-offset-2"
+      >
+        logout
+      </button>
     </>
   );
 }
