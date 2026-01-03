@@ -16,7 +16,7 @@ export default function Login() {
     any,
     string,
     { email: string; password: string }
-  >("/auth/login", (_url, { arg }) =>
+  >("/api/auth/login", (_url, { arg }) =>
     authService.login(arg.email, arg.password)
   );
 
