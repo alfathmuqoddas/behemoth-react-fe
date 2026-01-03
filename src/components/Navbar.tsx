@@ -22,7 +22,7 @@ export default function Navbar() {
         <div className="flex gap-8">
           {isLoggedIn ? (
             <div className="flex gap-4">
-              <p className="text-xs tracking-[0.2em] hover:cursor-pointer">
+              <p className="text-xs tracking-[0.2em] hover:cursor-pointer hidden md:block">
                 {user?.email}
               </p>
               <p

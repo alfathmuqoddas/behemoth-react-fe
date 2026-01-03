@@ -1,4 +1,5 @@
 import { movieService } from "../api/movie";
+import { Link } from "react-router";
 import { useState } from "react";
 import useSWR from "swr";
 
@@ -64,7 +65,11 @@ export default function Index() {
         ) : (
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-10">
             {data?.movies.map((movie) => (
-              <div key={movie.id} className="group cursor-pointer">
+              <Link
+                to={`/movie/${movie.id}`}
+                key={movie.id}
+                className="group cursor-pointer"
+              >
                 <div className="relative overflow-hidden bg-slate-100 rounded-xl aspect-2/3">
                   <img
                     src={movie.poster}
@@ -81,7 +86,7 @@ export default function Index() {
                     {movie.year}
                   </p>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         )}

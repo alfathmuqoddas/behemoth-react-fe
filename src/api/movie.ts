@@ -43,8 +43,8 @@ export const movieService = {
     });
     return data;
   },
-  getById: async (id: string) => {
-    const { data } = await publicApi.get(`api/movie/get/${id}`);
+  getById: async (id: string): Promise<TMovie> => {
+    const { data } = await publicApi.get(`api/movies/get/${id}`);
     return data;
   },
 };
