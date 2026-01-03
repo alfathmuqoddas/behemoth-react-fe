@@ -9,7 +9,6 @@ export default function Navbar() {
 
     if (confirmed) {
       useAuthStore.getState().reset();
-      window.location.href = "/login";
     }
   };
   return (

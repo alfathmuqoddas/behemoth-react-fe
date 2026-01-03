@@ -12,7 +12,7 @@ export default function Login() {
   const navigate = useNavigate();
 
   const { trigger, isMutating } = useSWRMutation<
-    { token: string; user: { id: string; email: string } },
+    { token: string; user: { id: string; email: string; role: string } },
     any,
     string,
     { email: string; password: string }
@@ -41,7 +41,9 @@ export default function Login() {
       <div className="flex shadow-2xl rounded-2xl overflow-hidden max-w-4xl w-full bg-white">
         <div className="flex flex-col justify-center gap-6 w-full md:w-1/2 p-8 lg:p-12">
           <div>
-            <h3 className="text-3xl font-bold text-blue-600">Selamat Datang</h3>
+            <h3 className="text-3xl font-bold text-slate-800">
+              Selamat Datang
+            </h3>
             <p className="text-sm text-gray-500 mt-2">
               Silahkan masuk dengan email dan password
             </p>
@@ -68,7 +70,7 @@ export default function Login() {
               <button
                 type="submit"
                 disabled={isMutating}
-                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-lg transition-colors shadow-lg mt-2"
+                className="w-full hover:cursor-pointer bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 rounded-lg transition-colors shadow-lg mt-2"
               >
                 {isMutating ? "Logging in..." : "Login"}
               </button>

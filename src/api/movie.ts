@@ -1,4 +1,4 @@
-import { publicApi } from "./intance";
+import { privateApi, publicApi } from "./intance";
 
 export type TMovie = {
   id: string;
@@ -45,6 +45,16 @@ export const movieService = {
   },
   getById: async (id: string): Promise<TMovie> => {
     const { data } = await publicApi.get(`api/movies/get/${id}`);
+    return data;
+  },
+  addByImdbId: async (imdbId: string) => {
+    const { data } = await privateApi.post(`api/movies/add-imdb`, {
+      imdbId,
+    });
+    return data;
+  },
+  delete: async (id: string) => {
+    const { data } = await privateApi.delete(`api/movies/delete/${id}`);
     return data;
   },
 };

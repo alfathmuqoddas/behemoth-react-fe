@@ -2,13 +2,15 @@ import { movieService } from "../api/movie";
 import { Link } from "react-router";
 import { useState } from "react";
 import useSWR from "swr";
+import AddMovie from "../components/AddMovie";
 
 export default function Index() {
   const [page, setPage] = useState(1);
   const [size, setSize] = useState(12); // Modern grids look better with multiples of 3 or 4
 
-  const { data, isLoading, error } = useSWR([`/movies`, page, size], () =>
-    movieService.getAll(page, size, "")
+  const { data, isLoading, error, mutate } = useSWR(
+    [`/movies`, page, size],
+    () => movieService.getAll(page, size, "")
   );
 
   const totalPages = data?.totalPages || 0;
@@ -28,27 +30,30 @@ export default function Index() {
         {/* Header Section */}
         <header className="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div>
-            <h1 className="text-4xl text-slate-900">Movies</h1>
+            <h1 className="text-4xl text-slate-900 font-bold">Movies</h1>
             <p className="text-slate-500 mt-2">Rate and Review Movies</p>
           </div>
-          <div className="flex items-center gap-4 text-sm font-medium">
-            <span className="text-slate-400 uppercase tracking-widest text-[10px]">
-              Show
-            </span>
-            <select
-              className="bg-transparent border-b border-slate-200 focus:border-slate-900 outline-none pb-1 cursor-pointer"
-              value={size}
-              onChange={(e) => {
-                setSize(parseInt(e.target.value));
-                setPage(1);
-              }}
-            >
-              {[12, 24, 48].map((v) => (
-                <option key={v} value={v}>
-                  {v}
-                </option>
-              ))}
-            </select>
+          <div className="flex gap-4">
+            <div className="flex items-center gap-4 text-sm font-medium">
+              <span className="text-slate-400 uppercase tracking-widest text-[10px]">
+                Show
+              </span>
+              <select
+                className="bg-transparent border-b border-slate-200 focus:border-slate-900 outline-none pb-1 cursor-pointer"
+                value={size}
+                onChange={(e) => {
+                  setSize(parseInt(e.target.value));
+                  setPage(1);
+                }}
+              >
+                {[12, 24, 48].map((v) => (
+                  <option key={v} value={v}>
+                    {v}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <AddMovie mutate={mutate} />
           </div>
         </header>
 

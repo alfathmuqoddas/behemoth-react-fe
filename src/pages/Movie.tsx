@@ -2,6 +2,7 @@ import { useParams } from "react-router";
 import { movieService } from "../api/movie";
 import useSWR from "swr";
 import Review from "../components/Review";
+import DeleteMovie from "../components/DeleteMovie";
 
 export default function Movie() {
   const movieId = useParams().id ?? "";
@@ -44,7 +45,7 @@ export default function Movie() {
               <span className="text-[10px] uppercase tracking-[0.3em] text-slate-400 font-bold">
                 {data?.genre}
               </span>
-              <h1 className="text-5xl font-light tracking-tighter leading-none">
+              <h1 className="text-5xl font-bold tracking-tighter leading-none">
                 {data?.title}
               </h1>
               <div className="flex gap-4 text-xs font-mono text-slate-500 pt-2">
@@ -76,11 +77,12 @@ export default function Movie() {
                 </p>
               </div>
             </div>
+            <DeleteMovie id={data?.id ?? ""} />
           </div>
         </div>
       </section>
 
-      <Review />
+      <Review movieId={data?.id ?? ""} />
     </div>
   );
 }
