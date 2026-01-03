@@ -1,27 +1,43 @@
 import { useState } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
+import { authService } from "../api/auth";
+import useSWRMutation from "swr/mutation";
 
 export default function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [fullName, setFullName] = useState("");
-  const [role, setRole] = useState("");
+  const [role, setRole] = useState("admin");
   const [userName, setUserName] = useState("");
+
+  const navigate = useNavigate();
+
+  const { trigger, isMutating } = useSWRMutation<
+    any,
+    any,
+    string,
+    { email: string; password: string; role: string }
+  >("/register", (_url, { arg }) =>
+    authService.register(arg.email, arg.password, arg.role)
+  );
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (
-      !email ||
-      !password ||
-      !confirmPassword ||
-      !fullName ||
-      !role ||
-      !userName
-    )
-      return;
-    console.log({ email, password, confirmPassword, fullName, role, userName });
-    alert(`Registering with: ${email}`);
+    if (!email || !password || !role) return;
+    if (password !== confirmPassword)
+      return alert("Password tidak cocok dengan konfirmasi password.");
+    trigger(
+      { email, password, role },
+      {
+        onSuccess: () => {
+          alert("Registrasi berhasil.");
+          navigate("/");
+        },
+        onError: (error) =>
+          alert(`There's problem with your registration. ${error}`),
+      }
+    );
   };
 
   return (
@@ -88,9 +104,10 @@ export default function Register() {
               />
               <button
                 type="submit"
+                disabled={isMutating}
                 className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-lg transition-colors shadow-lg mt-2"
               >
-                Registrsi
+                {isMutating ? "Registering..." : "Registrasi"}
               </button>
 
               <p className="text-sm text-center text-gray-600 mt-4">
