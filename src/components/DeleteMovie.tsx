@@ -4,9 +4,10 @@ import { useNavigate } from "react-router";
 import useAuthStore from "../store/useAuthStore";
 
 export default function DeleteMovie({ id }: { id: string }) {
-  const navigate = useNavigate();
   const user = useAuthStore((state) => state.user);
   const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
+
+  const navigate = useNavigate();
 
   const { trigger, isMutating } = useSWRMutation<
     any,

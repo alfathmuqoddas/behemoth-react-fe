@@ -5,7 +5,7 @@ import Review from "../components/Review";
 import DeleteMovie from "../components/DeleteMovie";
 
 export default function Movie() {
-  const movieId = useParams().id ?? "";
+  const { id: movieId } = useParams() as { id: string };
 
   const { data, isLoading, error } = useSWR([`api/movies/get/${movieId}`], () =>
     movieService.getById(movieId)

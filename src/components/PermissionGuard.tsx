@@ -1,7 +1,6 @@
 import { Navigate } from "react-router";
 import { type JSX, useState, useEffect } from "react";
 import useAuthStore from "../store/useAuthStore";
-import MainLayout from "./MainLayout";
 
 export default function PermissionGuard({
   children,
@@ -27,5 +26,5 @@ export default function PermissionGuard({
   if (!isLoggedIn) {
     return <Navigate to="/login" replace />;
   }
-  return <MainLayout>{children}</MainLayout>;
+  return children;
 }

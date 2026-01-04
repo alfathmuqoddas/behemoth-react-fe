@@ -1,12 +1,14 @@
-import type { JSX } from "react";
 import Navbar from "./Navbar";
+import { Outlet } from "react-router";
 
-export default function MainLayout({ children }: { children: JSX.Element }) {
+export default function MainLayout() {
   return (
     <div className="min-h-screen flex flex-col bg-white font-sans antialiased text-slate-900">
       <Navbar />
 
-      <main className="grow">{children}</main>
+      <main className="grow">
+        <Outlet />
+      </main>
 
       {/* Minimal Footer */}
       <footer className="border-t border-slate-50 py-12 px-6">

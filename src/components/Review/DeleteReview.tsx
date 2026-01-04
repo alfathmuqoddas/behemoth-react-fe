@@ -14,8 +14,6 @@ export default function DeleteReview({
   const user = useAuthStore((state) => state.user);
   const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
 
-  if (!isLoggedIn && user?.id !== userId) return null;
-
   const { trigger, isMutating } = useSWRMutation<
     any,
     any,
@@ -42,6 +40,8 @@ export default function DeleteReview({
       }
     );
   };
+
+  if (!isLoggedIn && user?.id !== userId) return null;
 
   return (
     <button

@@ -4,10 +4,11 @@ import { movieService } from "../api/movie";
 import useAuthStore from "../store/useAuthStore";
 
 export default function AddMovie({ mutate }: { mutate: () => void }) {
-  const [isOpen, setIsOpen] = useState(false);
-  const [imdbId, setImdbId] = useState("");
   const user = useAuthStore((state) => state.user);
   const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
+
+  const [isOpen, setIsOpen] = useState(false);
+  const [imdbId, setImdbId] = useState("");
 
   const { trigger, isMutating } = useSWRMutation<
     any,
