@@ -16,11 +16,9 @@ export const APP_ROUTES = [
   {
     path: "/",
     component: Index,
-    isProtected: true,
   },
   {
     path: "/movie/:id",
     component: Movie,
-    isProtected: true,
   },
 ];

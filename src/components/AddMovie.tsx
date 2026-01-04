@@ -1,10 +1,13 @@
 import { useState } from "react";
 import useSWRMutation from "swr/mutation";
 import { movieService } from "../api/movie";
+import useAuthStore from "../store/useAuthStore";
 
 export default function AddMovie({ mutate }: { mutate: () => void }) {
   const [isOpen, setIsOpen] = useState(false);
   const [imdbId, setImdbId] = useState("");
+  const user = useAuthStore((state) => state.user);
+  const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
 
   const { trigger, isMutating } = useSWRMutation<
     any,
@@ -31,6 +34,8 @@ export default function AddMovie({ mutate }: { mutate: () => void }) {
       }
     );
   };
+
+  if (!isLoggedIn && user?.role !== "admin") return null;
 
   return (
     <>

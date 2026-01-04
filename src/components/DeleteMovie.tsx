@@ -6,6 +6,7 @@ import useAuthStore from "../store/useAuthStore";
 export default function DeleteMovie({ id }: { id: string }) {
   const navigate = useNavigate();
   const user = useAuthStore((state) => state.user);
+  const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
 
   const { trigger, isMutating } = useSWRMutation<
     any,
@@ -33,7 +34,9 @@ export default function DeleteMovie({ id }: { id: string }) {
       }
     );
   };
-  if (user?.role !== "admin") return null;
+
+  if (!isLoggedIn && user?.role !== "admin") return null;
+
   return (
     <div className="pt-4 border-t border-slate-100">
       <button

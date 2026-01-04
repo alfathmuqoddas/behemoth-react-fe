@@ -11,6 +11,8 @@ export default function ReviewInput({
   mutate: () => void;
 }) {
   const user = useAuthStore((state) => state.user);
+  const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
+
   const [userReview, setUserReview] = useState({ rating: 5, comment: "" });
 
   const { trigger, isMutating } = useSWRMutation<
@@ -55,6 +57,13 @@ export default function ReviewInput({
       }
     );
   };
+
+  if (!isLoggedIn)
+    return (
+      <div className="bg-slate-50 p-8 rounded-xl mb-8">
+        You must be logged in to submit a review.
+      </div>
+    );
 
   return (
     <div className="bg-slate-50 p-8 rounded-xl mb-8">
