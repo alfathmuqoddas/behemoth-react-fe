@@ -81,6 +81,12 @@ The application currently points to a backend API at `http://localhost:7080`. Yo
    ```bash
    docker run --rm -v $(pwd):/app -w /app -p 5173:5173 node:lts-alpine sh -c "npm install &&npm run dev -- --host 0.0.0.0"
    ```
+4. Tips: run the development server with makefile (make sure you have installed makefile)
+   ```bash
+   make install
+   make dev
+   make build
+   ```
 
 ## 📁 Project Structure
 
