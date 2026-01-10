@@ -43,7 +43,7 @@ export default function ReviewList({
           <div className="flex justify-between items-start">
             <div className="flex items-start gap-3">
               <div className="w-8 h-8 bg-slate-100 rounded-full flex items-center justify-center text-[10px] font-bold text-slate-400">
-                {review.userName.charAt(0)}
+                {review.avatar || review.userName.charAt(0)}
               </div>
               <div className="flex flex-col gap-2">
                 <p className="text-sm font-bold tracking-tight text-slate-900">

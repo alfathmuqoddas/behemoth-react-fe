@@ -1,6 +1,6 @@
 import { useState } from "react";
 import useSWRMutation from "swr/mutation";
-import { reviewService } from "../../api/review";
+import { reviewService, type TReview } from "../../api/review";
 import useAuthStore from "../../store/useAuthStore";
 
 export default function ReviewInput({
@@ -19,20 +19,15 @@ export default function ReviewInput({
     any,
     any,
     string,
-    {
-      movieId: string;
-      rating: number;
-      review: string;
-      userId: string;
-      userName: string;
-    }
+    Omit<TReview, "createdAt" | "updatedAt" | "id">
   >("/api/reviews/add", (_url, { arg }) =>
     reviewService.create(
       arg.movieId,
       arg.rating,
       arg.review,
       arg.userId,
-      arg.userName
+      arg.userName,
+      arg.avatar
     )
   );
 
@@ -44,7 +39,8 @@ export default function ReviewInput({
         rating: userReview.rating,
         review: userReview.comment,
         userId: user?.id ?? "",
-        userName: user?.email ?? "",
+        userName: user?.userName ?? "",
+        avatar: user?.avatar ?? "",
       },
       {
         onSuccess: () => {

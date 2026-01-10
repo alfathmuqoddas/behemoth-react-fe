@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router";
 import useSWRMutation from "swr/mutation";
 import { authService, type TUser } from "../api/auth";
 import useAuthStore from "../store/useAuthStore";
+import type { IUser } from "../store/useAuthStore";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -12,7 +13,7 @@ export default function Login() {
   const navigate = useNavigate();
 
   const { trigger, isMutating } = useSWRMutation<
-    { token: string; user: TUser & { id: string; role: string } },
+    { token: string; user: IUser },
     any,
     string,
     TUser

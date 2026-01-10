@@ -5,6 +5,7 @@ export type TReview = {
   userId: string;
   movieId: string;
   userName: string;
+  avatar: string;
   rating: number;
   review: string;
   createdAt: string;
@@ -38,11 +39,13 @@ export const reviewService = {
     rating: number,
     review: string,
     userId: string,
-    userName: string
+    userName: string,
+    avatar: string
   ) => {
     const { data } = await privateApi.post(`api/reviews/add`, {
       userId,
       userName,
+      avatar,
       movieId,
       rating,
       review,

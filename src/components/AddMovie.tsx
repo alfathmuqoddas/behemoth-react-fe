@@ -36,7 +36,7 @@ export default function AddMovie({ mutate }: { mutate: () => void }) {
     );
   };
 
-  if (!isLoggedIn && user?.role !== "admin") return null;
+  if (!isLoggedIn || user?.role !== "admin") return null;
 
   return (
     <>
