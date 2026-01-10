@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router";
 import useSWRMutation from "swr/mutation";
-import { authService } from "../api/auth";
+import { authService, type TUser } from "../api/auth";
 import useAuthStore from "../store/useAuthStore";
 
 export default function Login() {
@@ -12,12 +12,12 @@ export default function Login() {
   const navigate = useNavigate();
 
   const { trigger, isMutating } = useSWRMutation<
-    { token: string; user: { id: string; email: string; role: string } },
+    { token: string; user: TUser & { id: string; role: string } },
     any,
     string,
-    { email: string; password: string }
+    TUser
   >("/api/auth/login", (_url, { arg }) =>
-    authService.login(arg.email, arg.password)
+    authService.login({ email: arg.email, password: arg.password })
   );
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {

@@ -1,14 +1,14 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router";
-import { authService } from "../api/auth";
+import { authService, type TUserRegister } from "../api/auth";
 import useSWRMutation from "swr/mutation";
 
 export default function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [fullName, setFullName] = useState("");
-  const [role, setRole] = useState("admin");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [userName, setUserName] = useState("");
 
   const navigate = useNavigate();
@@ -17,18 +17,25 @@ export default function Register() {
     any,
     any,
     string,
-    { email: string; password: string; role: string }
+    TUserRegister
   >("/register", (_url, { arg }) =>
-    authService.register(arg.email, arg.password, arg.role)
+    authService.register({
+      email: arg.email,
+      password: arg.password,
+      firstName: arg.firstName,
+      lastName: arg.lastName,
+      userName: arg.userName,
+    })
   );
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!email || !password || !role) return;
+    if (!email || !password || !confirmPassword || !firstName || !lastName)
+      return;
     if (password !== confirmPassword)
       return alert("Password tidak cocok dengan konfirmasi password.");
     trigger(
-      { email, password, role },
+      { email, password, firstName, lastName, userName },
       {
         onSuccess: () => {
           alert("Registrasi berhasil.");
@@ -58,10 +65,18 @@ export default function Register() {
               <input
                 className="styled-input"
                 type="text"
+                placeholder="First Name"
+                required
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+              />
+              <input
+                className="styled-input"
+                type="text"
                 placeholder="Full Name"
                 required
-                value={fullName}
-                onChange={(e) => setFullName(e.target.value)}
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
               />
               <input
                 className="styled-input"
@@ -79,15 +94,7 @@ export default function Register() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
-              <select
-                className="styled-input"
-                required
-                value={role}
-                onChange={(e) => setRole(e.target.value)}
-              >
-                <option value="admin">Admin</option>
-                <option value="user">User</option>
-              </select>
+
               <input
                 className="styled-input"
                 type="password"

@@ -1,19 +1,23 @@
 import { publicApi } from "./intance";
 
+export type TUser = {
+  email: string;
+  password: string;
+};
+
+export type TUserRegister = TUser & {
+  firstName: string;
+  lastName: string;
+  userName: string;
+};
+
 export const authService = {
-  login: async (email: string, password: string) => {
-    const { data } = await publicApi.post("/api/auth/login", {
-      email,
-      password,
-    });
+  login: async (payload: TUser) => {
+    const { data } = await publicApi.post("/api/auth/login", payload);
     return data;
   },
-  register: async (email: string, password: string, role: string) => {
-    const { data } = await publicApi.post("/api/auth/register", {
-      email,
-      password,
-      role,
-    });
+  register: async (payload: TUserRegister) => {
+    const { data } = await publicApi.post("/api/auth/register", payload);
     return data;
   },
 };
