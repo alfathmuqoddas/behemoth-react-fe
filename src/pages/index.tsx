@@ -97,30 +97,32 @@ export default function Index() {
         )}
 
         {/* Pagination Section */}
-        <footer className="mt-20 pt-8 border-t border-slate-100 flex items-center justify-between">
-          <button
-            onClick={() => setPage((p) => Math.max(1, p - 1))}
-            disabled={page === 1}
-            className="text-xs uppercase tracking-widest font-bold disabled:opacity-30 hover:text-slate-500 transition-colors"
-          >
-            Prev
-          </button>
+        {totalPages > 1 && (
+          <footer className="mt-20 pt-8 border-t border-slate-100 flex items-center justify-between">
+            <button
+              onClick={() => setPage((p) => Math.max(1, p - 1))}
+              disabled={page === 1}
+              className="text-xs uppercase tracking-widest font-bold disabled:opacity-30 hover:text-slate-500 transition-colors"
+            >
+              Prev
+            </button>
 
-          <div className="flex items-center gap-4">
-            <span className="text-xs font-mono text-slate-400">
-              {String(page).padStart(2, "0")} /{" "}
-              {String(totalPages).padStart(2, "0")}
-            </span>
-          </div>
+            <div className="flex items-center gap-4">
+              <span className="text-xs font-mono text-slate-400">
+                {String(page).padStart(2, "0")} /{" "}
+                {String(totalPages).padStart(2, "0")}
+              </span>
+            </div>
 
-          <button
-            onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
-            disabled={page === totalPages}
-            className="text-xs uppercase tracking-widest font-bold disabled:opacity-30 hover:text-slate-500 transition-colors"
-          >
-            Next
-          </button>
-        </footer>
+            <button
+              onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+              disabled={page === totalPages}
+              className="text-xs uppercase tracking-widest font-bold disabled:opacity-30 hover:text-slate-500 transition-colors"
+            >
+              Next
+            </button>
+          </footer>
+        )}
       </div>
     </div>
   );
