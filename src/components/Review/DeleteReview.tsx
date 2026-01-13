@@ -41,7 +41,7 @@ export default function DeleteReview({
     );
   };
 
-  if (!isLoggedIn && user?.id !== userId) return null;
+  if (!isLoggedIn || user?.id !== userId) return null;
 
   return (
     <button

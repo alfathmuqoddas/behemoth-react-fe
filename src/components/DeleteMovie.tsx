@@ -36,7 +36,7 @@ export default function DeleteMovie({ id }: { id: string }) {
     );
   };
 
-  if (!isLoggedIn && user?.role !== "admin") return null;
+  if (!isLoggedIn || user?.role !== "admin") return null;
 
   return (
     <div className="pt-4 border-t border-slate-100">
