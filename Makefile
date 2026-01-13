@@ -5,6 +5,10 @@ IMAGE      := node:lts-alpine
 APP_DIR    := /app
 HOST_DIR   := $(CURDIR)
 PORT       ?= 5173
+TAG        ?= latest
+SERVICE_NAME := behemoth-react-fe
+REGISTRY     := registry.local:5000
+FULL_IMAGE   := $(REGISTRY)/$(SERVICE_NAME):$(TAG)
 
 # ===== Helpers =====
 define docker_run
@@ -26,6 +30,15 @@ dev:
 
 build:
 	$(call docker_run,$(IMAGE) sh -c "npm run build")
+
+build-images:
+	docker build -t $(FULL_IMAGE) .
+
+push-images:
+	docker push $(FULL_IMAGE)
+
+run-images:
+	docker run -d -p 8080:80 --name $(SERVICE_NAME) $(FULL_IMAGE)
 
 shell:
 	$(call docker_run,$(IMAGE) sh)
