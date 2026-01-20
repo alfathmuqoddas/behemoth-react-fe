@@ -7,7 +7,7 @@ HOST_DIR   := $(CURDIR)
 PORT       ?= 5173
 TAG        ?= latest
 SERVICE_NAME := behemoth-react-fe
-REGISTRY     := registry.local:5000
+REGISTRY     := registry.localhost
 FULL_IMAGE   := $(REGISTRY)/$(SERVICE_NAME):$(TAG)
 
 # ===== Helpers =====
